@@ -1,0 +1,120 @@
+# Configuration for an instance accelerator in the Titanus design space
+
+tile_memory: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 64
+
+tile_computing_engine: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 256
+
+# modify tile_attention_cim, tile_fc1_cim, tile_fc2_cim based on the LLM
+tile_attention_cim:  
+  tile_b: 1
+  tile_x: 1
+  tile_y: 768
+  
+tile_fc1_cim: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 768
+
+tile_fc2_cim: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 3072 # 4*768  
+
+tile_layernorm: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 16
+
+tile_relu: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 256
+
+tile_softmax: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 16
+
+tile_pruning: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 32 # 16*2
+
+tile_quant: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 32 # 16*2  
+
+tile_dequant: 
+  tile_b: 1
+  tile_x: 1
+  tile_y: 32 # 16*2    
+
+sparsity:
+  before_quant: 0.338
+  after_quant: 0.510
+  after_dequant: 0.405
+
+pruning: True
+
+quantization: True
+
+# activation and weight datawidth
+data_width: 8
+
+compute_ops_tiled: True
+
+memory_ops_tiled: False
+
+quant_bit: 
+  key: 3
+  value: 2.17
+
+prefill_seq: 32
+
+decode_seq: 32
+
+#based on the experiment result: (prefill_seq+decode_seq)=32->level=3.1, 64->4.41, 128->5.97, 256->7.74, 512->9.92, 1024->12.93
+HQE_level_num: 5
+
+#vocab_size: 30522
+
+layer_num: 12
+
+head_num: 12
+
+hidden_size: 768
+
+ff_dim: 3072 # hidden_size*4
+
+batch_size: 1
+
+#modify computing_engine_num, softmax_num based on the LLM
+computing_engine_num: 12
+
+softmax_num: 12
+
+layernorm_parallelism: 48
+
+pruning_unit_parallelism: 1
+
+quantization_unit_parallelism: 1
+
+dequantization_unit_parallelism: 1
+
+global_buffer_size: 4 #MB
+
+sz_buffer_size: 0.064
+
+main_memory: 
+  type: 'hbm'
+  mode: 'hb'
+  banks: 32
+  ranks: 1
+  channels: 4
