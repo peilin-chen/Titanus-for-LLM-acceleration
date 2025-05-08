@@ -433,32 +433,6 @@ def calculate_performance_metrics(logs_dir, accelerator, config, constants, GB_w
 	
 	max_pipeline_stage_cycle = max(pipeline_values)
 	
-	#print(f'pipeline_s1: {pipeline_s1}')
-	#print(f'pipeline_s2: {pipeline_s2}')
-	#print(f'pipeline_s3: {pipeline_s3}')
-	#print(f'pipeline_s4: {pipeline_s4}')
-	#print(f'pipeline_s5: {pipeline_s5}')
-	#print(f'pipeline_s6: {pipeline_s6}')
-	#print(f'pipeline_s7: {pipeline_s7}')
-	#
-	#print(f'max_pipeline_stage_cycle: {max_pipeline_stage_cycle}')
-	
-	#print(f'layernorm_pre_cycle: {layernorm_pre_cycle}')
-	#print(f'attcim_q_cycle: {attcim_q_cycle}')
-	#print(f'attcim_k_cycle: {attcim_k_cycle}')
-	#print(f'attcim_v_cycle: {attcim_v_cycle}')
-	#print(f'pruning_unit_cycle: {pruning_unit_cycle}')
-	#print(f'quant_unit_cycle: {quant_unit_cycle}')
-	#print(f'dequant_unit_cycle: {dequant_unit_cycle}')
-	#print(f'ce_qk_cycle: {ce_qk_cycle}')
-	#print(f'softmax_cycle: {softmax_cycle}')
-	#print(f'ce_sv_cycle: {ce_sv_cycle}')
-	#print(f'attcim_o_cycle: {attcim_o_cycle}')
-	#print(f'layernorm_aft_cycle: {layernorm_aft_cycle}')
-	#print(f'fc1_cim_cycle: {fc1_cim_cycle}')
-	#print(f'relu_cycle: {relu_cycle}')
-	#print(f'fc2_cim_cycle: {fc2_cim_cycle}')
-	
 	intra_pipeline = pipeline_stage*max_pipeline_stage_cycle + (config['prefill_seq']-1)*max_pipeline_stage_cycle
 	total_time_seconds_intra = ((intra_pipeline + (cycles_per_token*config['decode_seq']))*config['layer_num']) / (constants['clock_frequency'] * 1e6)
 	
@@ -569,7 +543,6 @@ def simulate(model_dict: dict, config: dict, constants: dict, logs_dir: str, deb
 	print(f"Attention head number: {config['head_num']}")
 	print(f"Hidden size: {config['hidden_size']}")
 	print(f"FFN dimension: {config['ff_dim']}")
-	# Get tiled ops from model dictionary
 	memory_ops, compute_ops, num_ops = dict2ops(model_dict, config, tile_compute_ops=config['compute_ops_tiled'], tile_memory_ops=config['memory_ops_tiled'], debug=debug)
 	#print('type(memory_ops):')
 	#print(type(memory_ops))
@@ -587,7 +560,6 @@ def simulate(model_dict: dict, config: dict, constants: dict, logs_dir: str, deb
 	compute_ops_batch_size = 1
 	memory_ops_batch_size = 1
 	
-	# Get operations
 	memory_op = get_op_list(memory_ops, memory_op_idx, memory_ops_batch_size)
 	compute_op = get_op_list(compute_ops, compute_op_idx, compute_ops_batch_size)
 	#print("memory_op:")

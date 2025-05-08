@@ -44,17 +44,17 @@ tile_softmax:
 tile_pruning: 
   tile_b: 1
   tile_x: 1
-  tile_y: 32 # 16*2
+  tile_y: 32 
 
 tile_quant: 
   tile_b: 1
   tile_x: 1
-  tile_y: 32 # 16*2  
+  tile_y: 32  
 
 tile_dequant: 
   tile_b: 1
   tile_x: 1
-  tile_y: 32 # 16*2    
+  tile_y: 32   
 
 sparsity:
   before_quant: 0.338
@@ -82,8 +82,6 @@ decode_seq: 64
 
 #based on the experiment result: (prefill_seq+decode_seq)=32->level=3.1, 64->4.41, 128->5.97, 256->7.74, 512->9.92, 1024->12.93
 HQE_level_num: 6
-
-#vocab_size: 30522
 
 layer_num: 12
 

@@ -22,31 +22,16 @@ dequantization_unit:
   dynamic: 1.3315
   leakage: 0.1725232
 
-# 16->46 cycles
 softmax:
   area: 10233.256904
   dynamic: 0.4459328
   leakage: 0.3583871
 
-# 16->189 cycles
 layernorm:
   area: 2448.270909
   dynamic: 0.0388803
   leakage: 0.0824012
 
-# 64
-#relu:
-#  area: 968.824069
-#  dynamic: 0.0525086
-#  leakage: 0.0396675
-  
-# 128
-#relu:
-#  area: 1923.373849
-#  dynamic: 0.1012236
-#  leakage: 0.0754217
-
-# 256
 relu:
   area: 3835.585105
   dynamic: 0.2007864

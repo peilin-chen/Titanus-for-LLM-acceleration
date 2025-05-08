@@ -99,7 +99,6 @@ class Buffer(object):
 				if self.used + data.data_size * self.weight_factor <= self.buffer_size:
 					break
 				elif not d.required_in_buffer: 
-					# Remove oldest used data if not required
 					self.used -= d.data_size * self.weight_factor
 					self.remove(d)
 					removed_old_data = True
@@ -114,9 +113,6 @@ class Buffer(object):
 		return removed_old_data
 
 	def store_in_main_memory(self, data):
-		#assert self.data_in_buffer(data)
-		#self.data.used -= data.data_size * self.weight_factor
-		#self.data.remove(data)
 		self.process_cycles = math.ceil(data.data_size * self.weight_factor / self.main_memory_bandwidth)
 		self.energy_per_cycle = self.main_memory_energy * data.data_size / self.main_memory_block_size / self.process_cycles
 		self.ready = False
@@ -133,7 +129,6 @@ class Buffer(object):
 				if self.used + data.data_size * self.weight_factor <= self.buffer_size:
 					break
 				elif not d.required_in_buffer: 
-					# Remove oldest used data if not required
 					self.used -= d.data_size * self.weight_factor
 					self.remove(d)
 					removed_old_data = True
@@ -152,7 +147,7 @@ class Buffer(object):
 		if self.process_cycles is None or self.process_cycles == 0:
 			self.data_being_added = None
 			self.ready = True
-			return (0, 0) # if not used, the module is power-gated resulting in no leakage power
+			return (0, 0)
 		else:
 			cycles_done = min(self.process_cycles, num_cycles)
 			self.process_cycles = max(self.process_cycles - num_cycles, 0)
