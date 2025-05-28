@@ -68,7 +68,12 @@ Finish simulation!
 
 ## Citation
 ```
-To be appear!
+@article{chen2025titanus,
+  title={Titanus: Enabling KV Cache Pruning and Quantization On-the-Fly for LLM Acceleration},
+  author={Chen, Peilin and Yang, Xiaoxuan},
+  journal={arXiv preprint arXiv:2505.17787},
+  year={2025}
+}
 ```
 
 ## Reference Repositories
